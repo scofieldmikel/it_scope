@@ -32,6 +32,9 @@ Route::post('login', [\App\Http\Controllers\Auth\LoginController::class, 'login'
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::group(['prefix' => 'product'], function () {
             Route::post('/', [\App\Http\Controllers\ProductController::class, 'storeProduct'])->middleware('checkProduct');
+            Route::get('/all-product', [\App\Http\Controllers\ProductController::class, 'getAllProduct']);
+            Route::get('/all-user-product', [\App\Http\Controllers\ProductController::class, 'getAllUserProduct']);
+
         });
 
         Route::group(['prefix' => 'email'], function () {

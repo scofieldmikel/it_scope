@@ -14,13 +14,16 @@ class ProductResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        // dd($this->user);
         return [
             'id' => $this->id,
             'name' => $this->name,
             'quantity' => $this->quantity,
             'amount' => $this->amount,
             'status' => $this->productStatus->name,
-            'business'=> (new UserResource($this->whenLoaded('user'))),
+            // 'business'=> $this->user[0]['name'],
+            'business_owner'=> new UserResource($this->whenLoaded('user')),
+
         ];
     }
 }
