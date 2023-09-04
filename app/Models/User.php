@@ -55,11 +55,6 @@ class User extends Authenticatable
         return $this->belongsTo(Status::class);
     }
 
-    // public function product(): BelongsTo
-    // {
-    //     return $this->belongsTo(Product::class, 'business_id');
-    // }
-
     public function products()
     {
         return $this->hasMany(Product::class, 'business_id');

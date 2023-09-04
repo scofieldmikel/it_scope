@@ -36,4 +36,14 @@ trait Helpers
 
         return $product_status_id;
     }
+
+    public static function getProducStatusName(int $statusID): string
+    {
+        $product_status_id = ProductStatus::find($statusID);
+        if (is_null($product_status_id)) {
+            throw new \Exception('Failed To Fetch Status Name');
+        }
+
+        return $product_status_id->name;
+    }
 }
