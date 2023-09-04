@@ -20,11 +20,6 @@ class Product extends Model
         return $this->belongsTo(ProductStatus::class, 'status_id');
     }
 
-    // public function user(): HasMany
-    // {
-    //     return $this->hasMany(User::class, 'id');
-    // }
-
     public function user()
     {
         return $this->belongsTo(User::class, 'id');
