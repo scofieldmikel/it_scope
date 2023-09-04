@@ -1,20 +1,13 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\Product;
 
 use Illuminate\Http\Request;
+use App\Http\Resources\ProductResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class UserResource extends JsonResource
+class UserProductResource extends JsonResource
 {
-    protected $sanStatus;
-
-    public function __construct($resource, bool $sanStatus = false)
-    {
-        $this->sanStatus = $sanStatus;
-        parent::__construct($resource);
-    }
-
     /**
      * Transform the resource into an array.
      *
@@ -22,6 +15,7 @@ class UserResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        // dd($this);
         return [
             'id' => $this->id,
             'name' => $this->name,
@@ -31,6 +25,7 @@ class UserResource extends JsonResource
             'status' => $this->status->name,
             'verified' => ! is_null($this->email_verified_at),
             'date_joined' => $this->created_at->format('F jS Y'),
+            'product'=>  ProductResource::collection($this->whenLoaded('products')),
             $this->mergeWhen($this->sanStatus, [
                 'token' => $this->createToken('API Token')->plainTextToken,
             ]),
