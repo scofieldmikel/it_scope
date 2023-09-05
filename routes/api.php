@@ -34,7 +34,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
             Route::post('/', [\App\Http\Controllers\ProductController::class, 'storeProduct'])->middleware('checkProduct');
             Route::get('/all-product', [\App\Http\Controllers\ProductController::class, 'getAllProduct']);
             Route::get('/all-user-product', [\App\Http\Controllers\ProductController::class, 'getAllUserProduct']);
-            Route::post('/update-product/{product}', [\App\Http\Controllers\ProductController::class, 'updateProduct']);
+            Route::post('/update-product/{product}', [\App\Http\Controllers\ProductController::class, 'updateProduct'])->middleware('checkProduct');
             Route::get('/get-my-product', [\App\Http\Controllers\ProductController::class, 'getMyProduct']);
             Route::get('/product-details/{product}', [\App\Http\Controllers\ProductController::class, 'productDetails']);
         });
@@ -42,6 +42,12 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::group(['prefix' => 'email'], function () {
             Route::post('verify', [\App\Http\Controllers\Auth\EmailController::class, 'verify']);
             Route::post('change-email', [\App\Http\Controllers\Auth\EmailController::class, 'changeEmail']);
+        });
+
+        Route::group(['prefix' => 'profile'], function () {
+            Route::post('update', [\App\Http\Controllers\UserController::class, 'updateProfile'])->middleware('checkProduct');
+            Route::post('/logout', [\App\Http\Controllers\UserController::class, 'logout']);
+
         });
 
     });
