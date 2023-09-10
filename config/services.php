@@ -38,4 +38,12 @@ return [
         'hash' => env('DEFAULT_HASH', 'sha1'),
     ],
 
+    'paystack' => [
+        'productionSecretKey' => env('PAYSTACK_PRODUCTION_SECRET'),
+        'productionPublicKey' => env('PAYSTACK_PRODUCTION_PUBLIC'),
+        'stagingPublicKey' => env('PAYSTACK_STAGING_PUBLIC'),
+        'stagingSecretKey' => env('PAYSTACK_STAGING_SECRET'),
+        'mode' => env('PAYSTACK_MODE', 'live'),
+    ],
+
 ];

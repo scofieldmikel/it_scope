@@ -14,14 +14,27 @@ class ProductResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        // dd($this);
         return [
             'id' => $this->id,
             'name' => $this->name,
             'quantity' => $this->quantity,
             'amount' => $this->amount,
             'status' => $this->productStatus->name,
+            'image' => $this->images(),
             'business_owner'=> new UserResource($this->whenLoaded('user')),
 
         ];
+    }
+
+    public function images()
+    {
+        foreach ($this->images as $image) {
+            return [
+                'image_url' => $image->url,
+                'image_extenstion' => $image->extension
+            ];
+        }
+        
     }
 }

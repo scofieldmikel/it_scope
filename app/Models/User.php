@@ -4,9 +4,11 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\Status;
+use App\Models\Auth\Transaction;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -55,8 +57,18 @@ class User extends Authenticatable
         return $this->belongsTo(Status::class);
     }
 
-    public function products()
+    public function products(): HasMany
     {
-        return $this->hasMany(Product::class, 'business_id');
+        return $this->hasMany(Product::class);
+    }
+
+    public function transactions(): HasMany
+    {
+        return $this->hasMany(Transaction::class);
+    }
+
+    public function purchase_transactions(): HasMany
+    {
+        return $this->hasMany(PurchaseTransaction::class);
     }
 }

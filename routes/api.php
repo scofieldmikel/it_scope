@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Webhooks\PaystackWebhookController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +31,7 @@ Route::post('login', [\App\Http\Controllers\Auth\LoginController::class, 'login'
 
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
+
     Route::group(['prefix' => 'product'], function () {
             Route::post('/', [\App\Http\Controllers\ProductController::class, 'storeProduct'])->middleware('checkProduct');
             Route::get('/all-product', [\App\Http\Controllers\ProductController::class, 'getAllProduct']);
@@ -50,7 +52,14 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
         });
 
+        Route::group(['prefix' => 'transaction'], function () {
+            Route::post('product/{product}/payment', [\App\Http\Controllers\PaymentController::class, 'purchaseProduct']); 
+        });
+
     });
 
+    Route::group(['prefix' => 'webhook'], function () {
+        Route::post('paystack', [PaystackWebhookController::class, 'handle'])->middleware('paystack');
+    });
     
 });
