@@ -3,13 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Image;
 use App\Models\Product;
 use App\Traits\Helpers;
+use App\Events\UploadImage;
 use Illuminate\Http\Request;
 use App\Http\Resources\ProductResource;
 use App\Http\Requests\UpdateProductRequest;
 use App\Http\Requests\Product\ProductRequest;
 use App\Http\Resources\Product\UserProductResource;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
 class ProductController extends Controller
 {
@@ -19,6 +22,11 @@ class ProductController extends Controller
     {
         $user = auth()->user();
 
+        $product_image = 
+            Cloudinary::upload($request->file('image')
+                    ->getRealPath(), ['folder' => 'it_scope/product'])
+                ->getSecurePath();
+
         $product = Product::create([
             'name' => $request->name,
             'status_id' => ProductController::getProductStatusId('Enabled'),
@@ -26,6 +34,9 @@ class ProductController extends Controller
             'quantity' => $request->quantity,
             'amount' => $request->amount,
         ]);
+
+        UploadImage::dispatch($product->id, $product_image);
+
         return new ProductResource($product);
     }
 

@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Product;
+namespace App\Http\Requests;
 
-use App\Rules\ValidQuantity;
 use Illuminate\Foundation\Http\FormRequest;
 
-class ProductRequest extends FormRequest
+class PaymentRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,9 +22,9 @@ class ProductRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|unique:products|min:3|max:255',
-            'quantity' => ['required'],
-            'amount' =>'required|numeric|min:0'
+            'payment_method' => 'required',
+            'quantity' => 'required|numeric',
+            // 'amount' => 'required|numeric'
         ];
     }
 }

@@ -2,19 +2,20 @@
 
 namespace App\Models;
 
-use App\Models\Product;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Image extends Model
+class PurchaseTransaction extends Model
 {
     use HasFactory, SoftDeletes;
 
     protected $guarded = ['id'];
 
-    public function product()
+    public function user(): BelongsTo
     {
-        return $this->belongsTo(Product::class);
+        return $this->belongsTo(User::class);
     }
 }

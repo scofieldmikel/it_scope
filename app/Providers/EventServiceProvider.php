@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Events\UploadImage;
 use App\Events\UserRegistered;
+use App\Listeners\ProcessUploadImage;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Auth\Events\Registered;
 use App\Listeners\SendVerificationEmail;
@@ -23,7 +25,10 @@ class EventServiceProvider extends ServiceProvider
 
         UserRegistered::class => [
             SendVerificationEmail::class,
+        ],
 
+        UploadImage::class => [
+            ProcessUploadImage::class,
         ],
     ];
 
