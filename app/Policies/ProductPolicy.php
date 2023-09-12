@@ -18,14 +18,14 @@ class ProductPolicy
 
     public function viewPoduct(User $user, Product $product): Response
     {
-        return $user->id === $product->business_id
+        return $user->id === $product->user_id
             ? Response::allow()
             : Response::deny('You do not own this product.');
     }
 
     public function update(User $user, Product $product)
     {
-        return $user->id === $product->business_id
+        return $user->id === $product->user_id
         ? Response::allow()
         : Response::deny('You do not own this product.');
     }

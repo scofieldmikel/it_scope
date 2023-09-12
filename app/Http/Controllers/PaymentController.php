@@ -30,7 +30,7 @@ class PaymentController extends Controller
 
         $transaction = $this->saveTransaction($product->amount * $request->quantity, $user, 'Payment', 'Product Purchase');
 
-        $this->savePurchaseTransaction($user, $product, $transaction, $product->user);
+        $this->savePurchaseTransaction($user, $product, $transaction, $product->user, $request->quantity);
 
         return $this->paymentMethod($request->payment_method, $transaction, $user, $data);
     }
