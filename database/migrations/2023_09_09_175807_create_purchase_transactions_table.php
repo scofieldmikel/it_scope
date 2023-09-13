@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('product_id')->constrained('products')->onDelete('cascade');
             $table->foreignId('transaction_id')->constrained('transactions')->onDelete('cascade');
             $table->foreignId('business_id')->constrained('users')->onDelete('cascade');
+            $table->string('quantity');
             $table->string('status');
             $table->softDeletes(); 
             $table->timestamps();
