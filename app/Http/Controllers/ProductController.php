@@ -30,7 +30,7 @@ class ProductController extends Controller
         $product = Product::create([
             'name' => $request->name,
             'status_id' => ProductController::getProductStatusId('Enabled'),
-            'business_id' => $user->id,
+            'user_id' => $user->id,
             'quantity' => $request->quantity,
             'amount' => $request->amount,
         ]);
@@ -57,7 +57,7 @@ class ProductController extends Controller
         $this->authorize('update', $product);
 
         $product->update([
-            'quantity' => $request-> quantity,
+            'quantity' => $product->quantity + $request-> quantity,
             'amount' => $request-> amount,
             "status_id" => $request->status_id,
         ]);

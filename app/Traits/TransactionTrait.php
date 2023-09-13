@@ -58,12 +58,13 @@ trait TransactionTrait
         $transaction->save();
     }
 
-    public function savePurchaseTransaction($user, $product ,$transaction, $business, $status = 0)
+    public function savePurchaseTransaction($user, $product ,$transaction, $business, $quantity, $status = 0)
     {
         $purchaseTransaction = new PurchaseTransaction([
             'product_id' => $product->id,
             'transaction_id' => $transaction->id,
             'business_id' => $business->id,
+            'quantity' => $quantity,
             'status' => $status,
         ]);
 
