@@ -57,7 +57,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
             Route::post('/single-transaction/{transaction}', [\App\Http\Controllers\TransactionController::class, 'singleTransaction']); 
             Route::post('product/{product}/payment', [\App\Http\Controllers\PaymentController::class, 'purchaseProduct']); 
             Route::post('/user-purchase', [\App\Http\Controllers\TransactionController::class, 'userPurchasehistory']); 
-
         });
 
     });
@@ -65,5 +64,5 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::group(['prefix' => 'webhook'], function () {
         Route::post('paystack', [PaystackWebhookController::class, 'handle'])->middleware('paystack');
     });
-
+    
 });
