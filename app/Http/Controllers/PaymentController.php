@@ -19,7 +19,7 @@ class PaymentController extends Controller
 
         if($product->quantity < $request->quantity)
         {
-            return $this->badRequestResponse('Quqntity left is more than the quantity selected');
+            return $this->badRequestResponse('Quqntity left is more than the quantity selected! You can only purchase '.$product->quantity);
         }
 
         $data = [
