@@ -17,6 +17,11 @@ class PaymentController extends Controller
     {
         $user = $request->user();
 
+        if($product->quantity === 0)
+        {
+            return $this->badRequestResponse('Out Of Stock ');
+        }
+
         if($product->quantity < $request->quantity)
         {
             return $this->badRequestResponse('Quqntity left is more than the quantity selected! You can only purchase '.$product->quantity);
