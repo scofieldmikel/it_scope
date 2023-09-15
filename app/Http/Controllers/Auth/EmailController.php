@@ -41,6 +41,10 @@ class EmailController extends Controller
     public function resend($email)
     {
         $user = User::where('email', $email)->first();
+        if(!isset($user))
+        {
+            return $this->forbiddenResponse('Email Did Not Exist');
+        }
         if ($this->checkIfVerified($user)) {
             $this->sendToken($user);
 

@@ -11,6 +11,8 @@ class ProductStatus extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $guarded = ['id'];
+
     public function product(): HasOne
     {
         return $this->hasOne(Product::class);

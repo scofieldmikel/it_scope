@@ -12,11 +12,12 @@ use App\Http\Resources\ProductResource;
 use App\Http\Requests\UpdateProductRequest;
 use App\Http\Requests\Product\ProductRequest;
 use App\Http\Resources\Product\UserProductResource;
+use App\Http\Traits\HasApiResponse;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
 class ProductController extends Controller
 {
-    use Helpers;
+    use Helpers, HasApiResponse;
 
     public function storeProduct(ProductRequest $request)
     {

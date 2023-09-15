@@ -17,6 +17,7 @@ class StatusResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'date_created' => $this->created_at->format('jS F Y h:i:sa'),
         ];
     }
 }
