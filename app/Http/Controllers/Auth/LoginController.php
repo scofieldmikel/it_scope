@@ -19,6 +19,10 @@ class LoginController extends Controller
     public function login(LoginRequest $request)
     {
         $user = User::where('email', $request->email)->first();
+        if(!isset($user))
+        {
+            return $this->forbiddenResponse('User did not exist');
+        }
         if ($user->status_id == LoginController::getStatusId('Inactive')) {
             UserRegistered::dispatch($user);
             return $this->forbiddenResponse('Login failed! Account is inactive');
