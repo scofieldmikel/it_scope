@@ -57,7 +57,14 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
             Route::post('/', [\App\Http\Controllers\TransactionController::class, 'myTransactions']); 
             Route::get('/single-transaction/{transaction}', [\App\Http\Controllers\TransactionController::class, 'singleTransaction']); 
             Route::post('product/{product}/payment', [\App\Http\Controllers\PaymentController::class, 'purchaseProduct']); 
-            Route::post('/user-purchase', [\App\Http\Controllers\TransactionController::class, 'userPurchasehistory']); 
+            Route::get('/user-purchase', [\App\Http\Controllers\TransactionController::class, 'userPurchasehistory']); 
+        });
+
+        Route::group(['prefix' => 'status'], function () {
+            Route::get('/', [ProductStatusController::class, 'getProductStatus']);
+            Route::get('/single-product-status/{status}', [ProductStatusController::class, 'getSingleProductStatus']);
+            Route::post('/add-status', [ProductStatusController::class, 'addStatus']);
+            Route::post('/update-product-status/{status}', [ProductStatusController::class, 'updateStatus']);
         });
 
         Route::group(['prefix' => 'status'], function () {
